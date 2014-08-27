@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class PlaneCollide : MonoBehaviour {
-
+	Animator anim;
 	// Use this for initialization
 	void Start () {
-	
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -15,5 +15,8 @@ public class PlaneCollide : MonoBehaviour {
 
 	void OnTriggerEnter () {
 		Debug.Log ("oops");
+		//anim.SetBool ("isCrush", true);
+		//animation.Play ("PlaneCrush");
+		//Animator.
 	}
 }
