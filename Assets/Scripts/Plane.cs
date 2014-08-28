@@ -13,6 +13,6 @@ public class Plane : MonoBehaviour {
 	void Update () {
 		transform.position += Vector3.right * Input.GetAxis ("Horizontal")*2;
 		//transform.Rotate(0, 0, Input.GetAxis ("Horizontal"));
-		transform.position += transform.forward * speed * Time.deltaTime * 2;
+		transform.position += transform.forward * speed * Time.deltaTime * 4;
 	}
 }

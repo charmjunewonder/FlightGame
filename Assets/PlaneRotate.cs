@@ -7,15 +7,20 @@ public class PlaneRotate : MonoBehaviour {
 	float maximumX= 360;
 	
 	float rotationX  = 0;
-	
+	float rotationXOfCamera  = 0;
+
 	float RSpeed = 20f;
 	
 	Quaternion originalRotation;
 	Quaternion qTo;
+	Quaternion originalRotationOfCamera;
+	Quaternion qToOfCamera;
 	// Use this for initialization
 	void Start () {
 		originalRotation = transform.rotation;
 		qTo = transform.rotation;
+		originalRotationOfCamera = mainCamera.transform.rotation;
+		qToOfCamera = mainCamera.transform.rotation;
 	}
 	
 	// Update is called once per frame
@@ -23,36 +28,16 @@ public class PlaneRotate : MonoBehaviour {
 //		if (Mathf.Approximately (transform.rotation.z, 0f))
 //						return;
 		float amount = Input.GetAxis ("Horizontal");
-		//transform.Rotate(0, 0, -amount/2* Time.deltaTime);
-		//mainCamera.transform.Rotate(0, 0, -amount/5* Time.deltaTime);
-		//if (Mathf.Approximately (transform.rotation.z, 0f)) {
-//			if (transform.rotation.z > 0) {
-//					float angle = 0.0F;
-//					Vector3 axis = Vector3.zero;
-//					transform.rotation.ToAngleAxis (out angle, out axis);
-//					Vector3 rot = new Vector3 (0, 1, 0) - axis;
-//					if (Mathf.Approximately (amount, 0f)) {
-//							//transform.rotation = new Quaternion(0, 180, 0, 0);
-//							transform.Rotate (rot);
-//					}
-//			} else if (transform.rotation.z < 0) {
-//					if (Mathf.Approximately (amount, 0f)) {
-//							//transform.rotation = new Quaternion(0, 180, 0, 0);
-//							//float abz = transform.rotation.z;
-//				float angle = 0.0F;
-//				Vector3 axis = Vector3.zero;
-//				transform.rotation.ToAngleAxis (out angle, out axis);
-//				Vector3 rot = axis - new Vector3 (0, 1, 0) ;
-//				transform.Rotate (rot);
-//					}
-//			}
-		//}
+
 		RSpeed = 20f;
 		rotationX += amount  * Time.deltaTime * RSpeed;
 		rotationX = ClampAngle (rotationX, minimumX, maximumX);
 
-		var xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.forward);
+		rotationXOfCamera += amount /10 * Time.deltaTime * RSpeed;
+		rotationXOfCamera = ClampAngle (rotationXOfCamera, minimumX, maximumX);
 
+		Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.forward);
+		Quaternion xQuaternionOfCamera = Quaternion.AngleAxis (rotationXOfCamera, Vector3.forward);
 		if (Mathf.Approximately (amount, 0f))
 		{
 			rotationX = 0.0f; 
@@ -60,8 +45,9 @@ public class PlaneRotate : MonoBehaviour {
 		}
 		
 		qTo =  originalRotation * xQuaternion;
-		
+		qToOfCamera = originalRotationOfCamera * xQuaternionOfCamera;
 		transform.rotation = Quaternion.Slerp(transform.rotation, qTo, RSpeed * Time.deltaTime);
+		mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, qToOfCamera, RSpeed * Time.deltaTime);
 	}
 		
 	static float ClampAngle (float angle, float min, float max){
