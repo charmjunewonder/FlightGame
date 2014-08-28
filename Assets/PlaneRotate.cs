@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PlaneRotate : MonoBehaviour {
+	public Camera mainCamera;
 	float minimumX= -360;
 	float maximumX= 360;
 	
@@ -19,9 +20,11 @@ public class PlaneRotate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+//		if (Mathf.Approximately (transform.rotation.z, 0f))
+//						return;
 		float amount = Input.GetAxis ("Horizontal");
-		transform.Rotate(0, 0, -amount/2);
-
+		//transform.Rotate(0, 0, -amount/2* Time.deltaTime);
+		//mainCamera.transform.Rotate(0, 0, -amount/5* Time.deltaTime);
 		//if (Mathf.Approximately (transform.rotation.z, 0f)) {
 //			if (transform.rotation.z > 0) {
 //					float angle = 0.0F;
@@ -44,8 +47,8 @@ public class PlaneRotate : MonoBehaviour {
 //					}
 //			}
 		//}
-
-		rotationX += Input.GetAxis("Horizontal") * Time.deltaTime * RSpeed;
+		RSpeed = 20f;
+		rotationX += amount  * Time.deltaTime * RSpeed;
 		rotationX = ClampAngle (rotationX, minimumX, maximumX);
 
 		var xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.forward);
@@ -53,6 +56,7 @@ public class PlaneRotate : MonoBehaviour {
 		if (Mathf.Approximately (amount, 0f))
 		{
 			rotationX = 0.0f; 
+			RSpeed = 2.5f;
 		}
 		
 		qTo =  originalRotation * xQuaternion;
