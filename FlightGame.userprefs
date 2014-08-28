@@ -1,15 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Plane.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlaneRotate.cs">
     <Files>
       <File FileName="Assets\Scripts\StartSceneController.cs" Line="24" Column="1" />
       <File FileName="Assets\Scripts\PlaneCollide.cs" Line="21" Column="17" />
       <File FileName="Assets\Scripts\ObjectPool.cs" Line="18" Column="20" />
-      <File FileName="Assets\Scripts\Plane.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Plane.cs" Line="14" Column="69" />
+      <File FileName="Assets\PlaneRotate.cs" Line="22" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\PlaneRotate.cs" line="16" offsetX="365" offsetY="255" expression="transform.rotation" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

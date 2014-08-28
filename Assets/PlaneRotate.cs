@@ -21,6 +21,7 @@ public class PlaneRotate : MonoBehaviour {
 		} else if (transform.rotation.z < 0) {
 			if (Mathf.Approximately(amount,0f)) {
 				//transform.rotation = new Quaternion(0, 180, 0, 0);
+				//float abz = transform.rotation.z;
 				transform.Rotate (0, 0, -.5f);
 			}
 		}
