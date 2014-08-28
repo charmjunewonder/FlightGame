@@ -29,6 +29,7 @@ public class PlaneRotate : MonoBehaviour {
 //						return;
 		float amount = Input.GetAxis ("Horizontal");
 
+
 		RSpeed = 20f;
 		rotationX += amount  * Time.deltaTime * RSpeed;
 		rotationX = ClampAngle (rotationX, minimumX, maximumX);
@@ -38,16 +39,32 @@ public class PlaneRotate : MonoBehaviour {
 
 		Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.forward);
 		Quaternion xQuaternionOfCamera = Quaternion.AngleAxis (rotationXOfCamera, Vector3.forward);
-		if (Mathf.Approximately (amount, 0f))
+
+		float angle1 = Vector3.Angle (transform.eulerAngles, new Vector3 (0, 180, 0));
+
+		Debug.Log (angle1);
+		if ( Mathf.Approximately (amount, 0f) )
 		{
 			rotationX = 0.0f; 
+			rotationXOfCamera = 0.0f;
 			RSpeed = 2.5f;
+			qTo = originalRotation * xQuaternion;
+			qToOfCamera = originalRotationOfCamera * xQuaternionOfCamera;
+			transform.rotation = Quaternion.Slerp (transform.rotation, qTo, RSpeed * Time.deltaTime);
+			mainCamera.transform.rotation = Quaternion.Slerp (mainCamera.transform.rotation, qToOfCamera, RSpeed * Time.deltaTime);
+			return;
 		}
-		
-		qTo =  originalRotation * xQuaternion;
-		qToOfCamera = originalRotationOfCamera * xQuaternionOfCamera;
-		transform.rotation = Quaternion.Slerp(transform.rotation, qTo, RSpeed * Time.deltaTime);
-		mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, qToOfCamera, RSpeed * Time.deltaTime);
+		if (angle1 < 8 || ( angle1 > 0 && angle1 < 10 && amount < 0)) {
+			qTo = originalRotation * xQuaternion;
+			qToOfCamera = originalRotationOfCamera * xQuaternionOfCamera;
+			transform.rotation = Quaternion.Slerp (transform.rotation, qTo, RSpeed * Time.deltaTime);
+			mainCamera.transform.rotation = Quaternion.Slerp (mainCamera.transform.rotation, qToOfCamera, RSpeed * Time.deltaTime);
+		} else if (angle1 > 62 || ( angle1 > 61 && angle1 < 63&& amount > 0)) {
+			qTo = originalRotation * xQuaternion;
+			qToOfCamera = originalRotationOfCamera * xQuaternionOfCamera;
+			transform.rotation = Quaternion.Slerp (transform.rotation, qTo, RSpeed * Time.deltaTime);
+			mainCamera.transform.rotation = Quaternion.Slerp (mainCamera.transform.rotation, qToOfCamera, RSpeed * Time.deltaTime);
+		}
 	}
 		
 	static float ClampAngle (float angle, float min, float max){

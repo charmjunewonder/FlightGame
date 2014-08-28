@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ObjectPool : MonoBehaviour
 {
 	
-	public static ObjectPool instance;
+	public ObjectPool instance;
 
 	public GameObject objectPrefab;
 	/// The pooled objects currently available.
@@ -18,7 +18,7 @@ public class ObjectPool : MonoBehaviour
 	public int amountToBuffer;
 	
 	/// The container object that we will keep unused pooled objects so we dont clog up the editor with objects.
-	protected GameObject containerObject;
+	public GameObject containerObject;
 	
 	void Awake ()
 	{
@@ -28,8 +28,7 @@ public class ObjectPool : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		containerObject = new GameObject("ObjectPool");
-		
+
 		//Loop through the object prefabs and make a new list for each one.
 		//We do this because the pool can only support prefabs set to it in the editor,
 		//so we can assume the lists of pooled objects are in the same order as object prefabs in the array
@@ -40,7 +39,6 @@ public class ObjectPool : MonoBehaviour
 		{
 			GameObject newObj = Instantiate(objectPrefab) as GameObject;
 			newObj.SetActive(false);
-			newObj.GetComponent<Cube>().isUsed = false;
 			newObj.transform.parent = containerObject.transform;
 			objectPool.Add(newObj);
 		}
@@ -64,10 +62,9 @@ public class ObjectPool : MonoBehaviour
 	public GameObject GetObjectFromPool ()
 	{
 		for (int i = 0; i < objectPool.Count; i++) {
-			if(objectPool[i].GetComponent<Cube>().isUsed){
+			if(objectPool[i].activeSelf){
 				continue;
 			}
-			objectPool[i].GetComponent<Cube>().isUsed = true;
 			objectPool[i].SetActive(true);
 			return objectPool[i];
 		}
@@ -81,7 +78,6 @@ public class ObjectPool : MonoBehaviour
 	void CheckForUnusedObject() {
 		foreach (GameObject cube in objectPool){
 			if ((plane.transform.position.z - cube.transform.position.z) > unusedDistance ) {
-				cube.GetComponent<Cube>().isUsed = false;
 				cube.SetActive(false);
 			}
 		}	

@@ -46,13 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PlaneRotate.cs" />
      <Compile Include="Assets\Scripts\Cube.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\InfiniteTerrain.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Plane.cs" />
      <Compile Include="Assets\Scripts\PlaneCollide.cs" />
+     <Compile Include="Assets\Scripts\PlaneRotate.cs" />
      <Compile Include="Assets\Scripts\StartSceneController.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
