@@ -18,5 +18,6 @@ public class PlaneCollide : MonoBehaviour {
 	void OnTriggerEnter () {
 		Debug.Log ("oops");
 		anim.SetBool("isCrush", true);
+		audio.Play ();
 	}
 }
