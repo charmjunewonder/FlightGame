@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Plane : MonoBehaviour {
 
-	float speed = 50.0f;
-	float facing = 0.0f; 
+	float speed = 50.0f; 
 	// Use this for initialization
 	void Start () {
 	
@@ -12,10 +11,8 @@ public class Plane : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		facing += Input.GetAxis("Horizontal") * Time.deltaTime;
-//		transform.rotation = Quaternion.Euler(0, facing, 0);
 		transform.position += Vector3.right * Input.GetAxis ("Horizontal");
-		//transform.rotation.z += Input.GetAxis ("Horizontal");
+		//transform.Rotate(0, 0, Input.GetAxis ("Horizontal"));
 		transform.position += transform.forward * speed * Time.deltaTime * 2;
 	}
 }
