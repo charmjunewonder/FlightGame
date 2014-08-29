@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutCube () {
 		for (;;) {
 			GameObject cube = poolOfCube.GetObjectFromPool ();
-			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (500, 800));
 			yield return new WaitForSeconds (.1f);
 		}
 	}
