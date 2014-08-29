@@ -11,17 +11,26 @@ public class GameController : MonoBehaviour {
 
 	public GameObject CubePool;
 	ObjectPool poolOfCube;
+
+	public GameObject DropCubePool;
+	ObjectPool poolOfDropCube;
+
 	public static int additionalScore;
+	int score;
+	int level;
 	// Use this for initialization
 	void Start () {
+		level = 1;
 		additionalScore = 0;
+
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
 		poolOfCube = CubePool.GetComponent<ObjectPool> ();
+		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
 
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
-
+		StartCoroutine ("checkLevel");
 	}
 	
 	// Update is called once per frame
@@ -39,7 +48,10 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator PutCube () {
 		for (;;) {
-			//StartCoroutine("DropCube");
+			if(level == 2){
+				StartCoroutine("DropCube");
+			}
+
 			GameObject cube = poolOfCube.GetObjectFromPool ();
 			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
 			yield return new WaitForSeconds (.1f);
@@ -47,7 +59,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator DropCube () {
-		GameObject cube = poolOfCube.GetObjectFromPool ();
+		GameObject cube = poolOfDropCube.GetObjectFromPool ();
 		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 47, Random.Range (200, 300));
 		for (int i = 0; i < 2; i++) {
 			cube.transform.position -= new Vector3(0, 25, 0);
@@ -55,8 +67,16 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	IEnumerator checkLevel () {
+		for (;;) {
+			if(score > 1000)
+				level = 2;
+			yield return new WaitForSeconds (5f);
+		}
+	}
+
 	void OnGUI () {
-		int score = (int)(plane.transform.position.z - originPositionOfPlane) + additionalScore;
+		score = (int)(plane.transform.position.z - originPositionOfPlane) + additionalScore;
 		GUI.Label(new Rect(10, 10, 100, 20), "Score: " + score);
 	}
 }
