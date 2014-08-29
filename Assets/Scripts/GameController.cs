@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
+	public static GameController instance;
+
 	public GameObject plane;
 	float originPositionOfPlane;
 
@@ -18,24 +20,31 @@ public class GameController : MonoBehaviour {
 	public GameObject SpeedItemPool;
 	ObjectPool poolOfSpeedItem;
 
+	public GameObject InsanityModeItemPool;
+	ObjectPool poolOfInsanityModeItem;
+
 	public static int additionalScore;
 	int score;
-	int level;
+	void Awake ()
+	{
+		instance = this;
+	}
 	// Use this for initialization
 	void Start () {
-		level = 1;
 		additionalScore = 0;
 
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
 		poolOfCube = CubePool.GetComponent<ObjectPool> ();
 		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
 		poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
+		poolOfInsanityModeItem = InsanityModeItemPool.GetComponent<ObjectPool> ();
 
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
 		StartCoroutine ("CheckLevel");
 		StartCoroutine ("PutSpeedItem");
+		StartCoroutine ("PutInsanityModeItem");
 	}
 	
 	// Update is called once per frame
@@ -59,15 +68,34 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	IEnumerator PutInsanityModeItem () {
+		for (;;) {
+			GameObject insanityModeItem = poolOfInsanityModeItem.instance.GetObjectFromPool ();
+			insanityModeItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+			yield return new WaitForSeconds (1f);
+		}
+	}
+
+	public void PutMoreCube () {
+		GameObject cube = poolOfCube.GetObjectFromPool ();
+		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+	}
+
 	IEnumerator PutCube () {
 		for (;;) {
-			if(level == 2){
-				StartCoroutine("DropCube");
-			}
-
 			GameObject cube = poolOfCube.GetObjectFromPool ();
 			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
 			yield return new WaitForSeconds (.1f);
+		}
+	}
+
+	IEnumerator PutDropCube () {
+		for (;;) {
+			StartCoroutine("DropCube");
+
+			GameObject cube = poolOfCube.GetObjectFromPool ();
+			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+			yield return new WaitForSeconds (.3f);
 		}
 	}
 
@@ -82,8 +110,11 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator CheckLevel () {
 		for (;;) {
-			if(score > 1000)
-				level = 2;
+			if(score > 1000){
+
+				StartCoroutine("PutDropCube");
+				break;
+			}
 			yield return new WaitForSeconds (5f);
 		}
 	}
