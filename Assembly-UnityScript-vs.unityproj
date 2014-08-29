@@ -48,12 +48,6 @@
   <ItemGroup>
      <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\Front Wheel.js" />
      <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\GUI Display.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\Missle Shoot.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\Plane Destroy.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\Plane.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\Smoke Trail.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\SmoothFollow.js" />
-     <Compile Include="Assets\Flight Control\Flight Controler 2\Scripts\SmoothLookAt.js" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />

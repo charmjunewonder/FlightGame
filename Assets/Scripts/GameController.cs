@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutScoreItem () {
 		for (;;) {
 			GameObject scoreItem = poolOfScoreItem.instance.GetObjectFromPool ();
-			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 500));
 			yield return new WaitForSeconds (.5f);
 		}
 	}
@@ -63,29 +63,29 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutSpeedItem () {
 		for (;;) {
 			GameObject speedItem = poolOfSpeedItem.instance.GetObjectFromPool ();
-			speedItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
-			yield return new WaitForSeconds (.5f);
+			speedItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 1800));
+			yield return new WaitForSeconds (2f);
 		}
 	}
 
 	IEnumerator PutInsanityModeItem () {
 		for (;;) {
 			GameObject insanityModeItem = poolOfInsanityModeItem.instance.GetObjectFromPool ();
-			insanityModeItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
-			yield return new WaitForSeconds (1f);
+			insanityModeItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 500));
+			yield return new WaitForSeconds (2f);
 		}
 	}
 
 	public void PutMoreCube () {
 		GameObject cube = poolOfCube.GetObjectFromPool ();
-		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (500, 800));
 	}
 
 	IEnumerator PutCube () {
 		for (;;) {
 			GameObject cube = poolOfCube.GetObjectFromPool ();
-			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (500, 800));
-			yield return new WaitForSeconds (.1f);
+			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 1800));
+			yield return new WaitForSeconds (.2f);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour {
 
 			GameObject cube = poolOfCube.GetObjectFromPool ();
 			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
-			yield return new WaitForSeconds (.3f);
+			yield return new WaitForSeconds (.5f);
 		}
 	}
 
