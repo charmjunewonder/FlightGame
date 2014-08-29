@@ -1,14 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ExitGameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameController.cs" Line="81" Column="120" />
-      <File FileName="Assets\Scripts\StartSceneController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlaneCollide.cs" Line="20" Column="18" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="124" Column="6" />
+      <File FileName="Assets\Scripts\StartSceneController.cs" Line="22" Column="3" />
+      <File FileName="Assets\Scripts\PlaneCollide.cs" Line="32" Column="12" />
       <File FileName="Assets\Scripts\ObjectPool.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Plane.cs" Line="17" Column="71" />
+      <File FileName="Assets\Scripts\Plane.cs" Line="14" Column="5" />
       <File FileName="Assets\Scripts\PlaneRotate.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\InfiniteTerrain.cs" Line="123" Column="1" />
+      <File FileName="Assets\Scripts\ExitGameController.cs" Line="26" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -17,5 +18,6 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="Assets\PlaneRotate.cs" line="16" offsetX="365" offsetY="255" expression="transform.rotation" liveUpdate="False" />
     <Watch file="Assets\PlaneRotate.cs" line="56" offsetX="293" offsetY="935" expression="rotationX" liveUpdate="False" />
+    <Watch file="Assets\Scripts\PlaneCollide.cs" line="49" offsetX="709" offsetY="816" expression="mainCamera.transform.position" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

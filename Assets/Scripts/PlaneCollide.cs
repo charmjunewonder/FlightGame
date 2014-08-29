@@ -24,6 +24,7 @@ public class PlaneCollide : MonoBehaviour {
 			Debug.Log ("oops");
 //			anim.SetBool ("isCrush", true);
 			audio.Play ();
+			Storage.score = GameController.instance.score;
 		} else if (other.tag == "ScoreItem") {
 			other.gameObject.SetActive(false);
 			GameController.additionalScore += 100;

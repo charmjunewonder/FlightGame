@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
 	ObjectPool poolOfInsanityModeItem;
 
 	public static int additionalScore;
-	int score;
+	public int score;
 	void Awake ()
 	{
 		instance = this;
