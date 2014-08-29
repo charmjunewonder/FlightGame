@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour {
 	public GameObject DropCubePool;
 	ObjectPool poolOfDropCube;
 
+	public GameObject SpeedItemPool;
+	ObjectPool poolOfSpeedItem;
+
 	public static int additionalScore;
 	int score;
 	int level;
@@ -26,11 +29,13 @@ public class GameController : MonoBehaviour {
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
 		poolOfCube = CubePool.GetComponent<ObjectPool> ();
 		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
+		poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
 
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
-		StartCoroutine ("checkLevel");
+		StartCoroutine ("CheckLevel");
+		StartCoroutine ("PutSpeedItem");
 	}
 	
 	// Update is called once per frame
@@ -42,6 +47,14 @@ public class GameController : MonoBehaviour {
 		for (;;) {
 			GameObject scoreItem = poolOfScoreItem.instance.GetObjectFromPool ();
 			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
+			yield return new WaitForSeconds (.5f);
+		}
+	}
+
+	IEnumerator PutSpeedItem () {
+		for (;;) {
+			GameObject speedItem = poolOfSpeedItem.instance.GetObjectFromPool ();
+			speedItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
 			yield return new WaitForSeconds (.5f);
 		}
 	}
@@ -67,7 +80,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator checkLevel () {
+	IEnumerator CheckLevel () {
 		for (;;) {
 			if(score > 1000)
 				level = 2;

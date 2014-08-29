@@ -16,15 +16,31 @@ public class PlaneCollide : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
+		if(isColliding) return;
+		isColliding = true;
 		if (other.tag == "Cube") {
 			Debug.Log ("oops");
 //			anim.SetBool ("isCrush", true);
 			audio.Play ();
 		} else if (other.tag == "ScoreItem") {
-			if(isColliding) return;
-			isColliding = true;
 			other.gameObject.SetActive(false);
 			GameController.additionalScore += 100;
+		} else if (other.tag == "SpeedItem"){
+			other.gameObject.SetActive(false);
+			StartCoroutine("SpeedUp");
+		}
+	}
+
+	IEnumerator SpeedUp () {
+		Plane.speed += 50;
+		yield return new WaitForSeconds (5f);
+		StartCoroutine("SpeedSlowDown");
+	}
+
+	IEnumerator SpeedSlowDown () {
+		for (int i = 0; i < 5; i++) {
+			Plane.speed -= 10;
+			yield return new WaitForSeconds(.1f);
 		}
 	}
 }

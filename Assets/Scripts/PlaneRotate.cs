@@ -42,7 +42,7 @@ public class PlaneRotate : MonoBehaviour {
 
 		float angle1 = Vector3.Angle (transform.eulerAngles, new Vector3 (0, 180, 0));
 
-		Debug.Log (angle1);
+
 		if ( Mathf.Approximately (amount, 0f) )
 		{
 			rotationX = 0.0f; 
