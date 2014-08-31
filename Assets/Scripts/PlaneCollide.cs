@@ -79,6 +79,7 @@ public class PlaneCollide : MonoBehaviour {
 		Plane.speed += 50;
 		yield return new WaitForSeconds (5f);
 		StartCoroutine(SpeedSlowDown(speed));
+		isSpeedUp = false;
 	}
 
 	IEnumerator SpeedSlowDown (float finalSpeed) {
