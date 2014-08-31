@@ -85,6 +85,8 @@ public class GameController : MonoBehaviour {
 		for (;;) {
 			GameObject cube = poolOfCube.GetObjectFromPool ();
 			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 1800));
+			Quaternion target = Quaternion.Euler(Random.Range (-5.0f, 5.0f), Random.Range (0, 360), Random.Range (-10.0f, 10.0f));
+			cube.transform.rotation = Quaternion.Slerp(cube.transform.rotation, target, 1.0f);
 			yield return new WaitForSeconds (.2f);
 		}
 	}
