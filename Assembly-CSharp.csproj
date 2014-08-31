@@ -46,17 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LightBeam.cs" />
-     <Compile Include="Assets\Scripts\Cube.cs" />
-     <Compile Include="Assets\Scripts\ExitGameController.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\InfiniteTerrain.cs" />
-     <Compile Include="Assets\Scripts\ObjectPool.cs" />
-     <Compile Include="Assets\Scripts\Plane.cs" />
-     <Compile Include="Assets\Scripts\PlaneCollide.cs" />
-     <Compile Include="Assets\Scripts\PlaneRotate.cs" />
-     <Compile Include="Assets\Scripts\StartSceneController.cs" />
-     <Compile Include="Assets\Scripts\Storage.cs" />
+     <Compile Include="Assets\_Scripts\Cube.cs" />
+     <Compile Include="Assets\_Scripts\ExitGameController.cs" />
+     <Compile Include="Assets\_Scripts\GameController.cs" />
+     <Compile Include="Assets\_Scripts\InfiniteTerrain.cs" />
+     <Compile Include="Assets\_Scripts\LightBeam.cs" />
+     <Compile Include="Assets\_Scripts\ObjectPool.cs" />
+     <Compile Include="Assets\_Scripts\Plane.cs" />
+     <Compile Include="Assets\_Scripts\PlaneCollide.cs" />
+     <Compile Include="Assets\_Scripts\PlaneRotate.cs" />
+     <Compile Include="Assets\_Scripts\StartSceneController.cs" />
+     <Compile Include="Assets\_Scripts\Storage.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
@@ -95,7 +95,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
-     <None Include="Assets\Shaders\Lightbeam.shader" />
+     <None Include="Assets\_Shaders\Lightbeam.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlurDX11.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
