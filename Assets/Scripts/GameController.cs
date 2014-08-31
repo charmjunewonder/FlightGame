@@ -103,10 +103,21 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator DropCube () {
 		GameObject cube = poolOfDropCube.GetObjectFromPool ();
-		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 47, Random.Range (200, 300));
-		for (int i = 0; i < 2; i++) {
-			cube.transform.position -= new Vector3(0, 25, 0);
-			yield return null;
+		Vector3 finalPosition = plane.transform.position + new Vector3 (Random.Range (-150, 150), 0, Random.Range (200, 300));
+
+		cube.transform.position = finalPosition + Vector3.up * 50;
+//		for (int i = 0; i < 2; i++) {
+//			cube.transform.position -= new Vector3(0, 25, 0);
+//			yield return null;
+//		}
+		float i = 0.0f;
+		float rate = 5f;
+		while (i < 1.0f) {
+			i += Time.deltaTime * rate;
+			cube.transform.position = Vector3.Lerp(cube.transform.position, finalPosition, i);
+			yield return null; 
+			if(Mathf.Abs(cube.transform.position.y - finalPosition.y) < 0.1f)
+				break;
 		}
 	}
 

@@ -35,6 +35,7 @@ public class PlaneCollide : MonoBehaviour {
 			isSpeedUp = true;
 			StartCoroutine("SpeedUp");
 			StartCoroutine("DragCameraBack");
+			isSpeedUp = false;
 		} else if (other.tag == "InsanityModeItem"){
 			other.gameObject.SetActive(false);
 			StartCoroutine("StartInsanityMode");
@@ -79,7 +80,6 @@ public class PlaneCollide : MonoBehaviour {
 		Plane.speed += 50;
 		yield return new WaitForSeconds (5f);
 		StartCoroutine(SpeedSlowDown(speed));
-		isSpeedUp = false;
 	}
 
 	IEnumerator SpeedSlowDown (float finalSpeed) {
