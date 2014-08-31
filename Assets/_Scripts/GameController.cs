@@ -94,9 +94,6 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutDropCube () {
 		for (;;) {
 			StartCoroutine("DropCube");
-
-			GameObject cube = poolOfCube.GetObjectFromPool ();
-			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (300, 500));
 			yield return new WaitForSeconds (.5f);
 		}
 	}
