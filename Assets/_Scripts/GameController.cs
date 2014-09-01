@@ -22,9 +22,14 @@ public class GameController : MonoBehaviour {
 
 	public GameObject InsanityModeItemPool;
 	ObjectPool poolOfInsanityModeItem;
+	public Texture DropCubeIcon;
 
 	public static int additionalScore;
 	public int score;
+	int level;
+	public Font myFont;
+	public GameObject levelLabel;
+
 	void Awake ()
 	{
 		instance = this;
@@ -32,7 +37,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		additionalScore = 0;
-
+		level = 1;
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
 		poolOfCube = CubePool.GetComponent<ObjectPool> ();
 		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
@@ -43,7 +48,6 @@ public class GameController : MonoBehaviour {
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
 		StartCoroutine ("CheckLevel");
-		StartCoroutine ("PutSpeedItem");
 		StartCoroutine ("PutInsanityModeItem");
 	}
 	
@@ -120,17 +124,37 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator CheckLevel () {
 		for (;;) {
-			if(score > 1000){
-
+			if(score > 500){
+				levelLabel.guiText.text = "Level 2";
+				level = 2;
+				levelLabel.SetActive(true);
+				yield return new WaitForSeconds (2f);
+				levelLabel.SetActive(false);
 				StartCoroutine("PutDropCube");
 				break;
 			}
-			yield return new WaitForSeconds (5f);
+			if(score > 1000){
+				levelLabel.guiText.text = "Level 3";
+				level = 3;
+				levelLabel.SetActive(true);
+				yield return new WaitForSeconds (2f);
+				levelLabel.SetActive(false);
+				StartCoroutine("PutSpeedItem");
+				break;
+			}
+			yield return new WaitForSeconds (1f);
 		}
 	}
 
 	void OnGUI () {
-		score = (int)(plane.transform.position.z - originPositionOfPlane) + additionalScore;
-		GUI.Label(new Rect(10, 10, 100, 20), "Score: " + score);
+		score = (int)(plane.transform.position.z - originPositionOfPlane)/10 + additionalScore;
+		GUIStyle myStyle = new GUIStyle();
+		myStyle.font = myFont;
+
+		GUI.Label(new Rect(10, 10, 100, 20), "Score: " + score, myStyle);
+		if(level > 2)
+			GUI.DrawTexture(new Rect(Screen.width-55, 5, 50, 50), DropCubeIcon, ScaleMode.ScaleToFit, true, 0);
+
+
 	}
 }
