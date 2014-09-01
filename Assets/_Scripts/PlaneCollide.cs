@@ -7,6 +7,7 @@ public class PlaneCollide : MonoBehaviour {
 	bool isColliding;
 	public Camera mainCamera;
 	bool isSpeedUp = false;
+	bool isDebuging = false;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,10 @@ public class PlaneCollide : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		isColliding = false;
+		if(Input.GetKeyDown(KeyCode.T)){
+			Debug.Log ("aaoops");
+			isDebuging = !isDebuging;
+		}
 	}
 
 	void OnTriggerEnter (Collider other) {
@@ -23,11 +28,13 @@ public class PlaneCollide : MonoBehaviour {
 		isColliding = true;
 		if (other.tag == "Cube") {
 			Debug.Log ("oops");
-//			Plane.speed = 0;
-//			anim.SetBool ("isCrush", true);
-//			audio.Play ();
-//			Storage.score = GameController.instance.score;
-//			StartCoroutine("ExitGame");
+			if(isDebuging)
+				return;
+			Plane.speed = 0;
+			anim.SetBool ("isCrush", true);
+			audio.Play ();
+			Storage.score = GameController.instance.score;
+			StartCoroutine("ExitGame");
 		} else if (other.tag == "ScoreItem") {
 			other.gameObject.SetActive(false);
 			GameController.additionalScore += 100;

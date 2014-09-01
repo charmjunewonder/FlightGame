@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutScoreItem () {
 		for (;;) {
 			GameObject scoreItem = poolOfScoreItem.instance.GetObjectFromPool ();
-			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-200, 200), 0, Random.Range (1500, 500));
+			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-200, 200), 0, Random.Range (1200, 1500));
 			yield return new WaitForSeconds (1f);
 		}
 	}
