@@ -3,7 +3,9 @@ using System.Collections;
 
 public class ExitGameController : MonoBehaviour {
 	public GUISkin mySkin;
-
+	void Start () {
+		Screen.showCursor = true;
+	}
 	void OnGUI () {
 		GUI.skin = mySkin;
 

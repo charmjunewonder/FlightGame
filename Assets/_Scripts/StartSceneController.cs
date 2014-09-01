@@ -3,6 +3,11 @@ using System.Collections;
 
 public class StartSceneController : MonoBehaviour {
 	public GUISkin mySkin;
+
+	void Start () {
+		Screen.showCursor = true;
+	}
+
 	void OnGUI () {
 		GUI.skin = mySkin;
 

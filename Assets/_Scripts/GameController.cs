@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		Screen.showCursor = false;
+
 		additionalScore = 0;
 		level = 1;
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
@@ -149,7 +151,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator CheckLevel () {
 		bool l2 = false, l3 = false, l4 = false, l5 = false;
 		for (;;) {
-			Debug.Log(score);
+			//Debug.Log(score);
 			if(!l2 && score > 500){
 				levelLabel.guiText.text = "Level 2";
 				level = 2;
