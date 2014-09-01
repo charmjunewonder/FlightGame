@@ -105,7 +105,7 @@ public class PlaneCollide : MonoBehaviour {
 	IEnumerator PutMoreCube () {
 		for (;;) {
 			GameController.instance.PutMoreCube();
-			yield return new WaitForSeconds (.05f);
+			yield return new WaitForSeconds (.1f);
 		}
 	}
 }

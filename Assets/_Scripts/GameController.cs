@@ -159,8 +159,10 @@ public class GameController : MonoBehaviour {
 		score = (int)(plane.transform.position.z - originPositionOfPlane)/10 + additionalScore;
 		GUIStyle myStyle = new GUIStyle();
 		myStyle.font = myFont;
-
+		myStyle.normal.textColor = Color.white;
+		myStyle.fontSize = 30;
 		GUI.Label(new Rect(10, 10, 100, 20), "Score: " + score, myStyle);
+
 		if(level > 2)
 			GUI.DrawTexture(new Rect(Screen.width-55, 5, 50, 50), DropCubeIcon, ScaleMode.ScaleToFit, true, 0);
 

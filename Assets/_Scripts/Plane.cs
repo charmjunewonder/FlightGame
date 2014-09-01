@@ -14,6 +14,6 @@ public class Plane : MonoBehaviour {
 		//Debug.Log (speed);
 		transform.position += Vector3.right * Input.GetAxis ("Horizontal");
 		//transform.Rotate(0, 0, Input.GetAxis ("Horizontal"));
-		transform.position += transform.forward * speed * Time.deltaTime * 4;
+		transform.position += transform.forward * speed * Time.deltaTime * 5;
 	}
 }
