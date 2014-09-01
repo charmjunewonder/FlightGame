@@ -7,6 +7,7 @@ public class PlaneCollide : MonoBehaviour {
 	bool isColliding;
 	public Camera mainCamera;
 	bool isSpeedUp = false;
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
@@ -22,9 +23,11 @@ public class PlaneCollide : MonoBehaviour {
 		isColliding = true;
 		if (other.tag == "Cube") {
 			Debug.Log ("oops");
-//			anim.SetBool ("isCrush", true);
+			Plane.speed = 0;
+			anim.SetBool ("isCrush", true);
 			audio.Play ();
 			Storage.score = GameController.instance.score;
+			StartCoroutine("ExitGame");
 		} else if (other.tag == "ScoreItem") {
 			other.gameObject.SetActive(false);
 			GameController.additionalScore += 100;
@@ -40,6 +43,11 @@ public class PlaneCollide : MonoBehaviour {
 			other.gameObject.SetActive(false);
 			StartCoroutine("StartInsanityMode");
 		}
+	}
+
+	IEnumerator ExitGame () {
+		yield return new WaitForSeconds (1f);
+		Application.LoadLevel("ExitGame");
 	}
 
 	IEnumerator DragCameraBack () {

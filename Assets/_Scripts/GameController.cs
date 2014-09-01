@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
 		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
 		poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
 		poolOfInsanityModeItem = InsanityModeItemPool.GetComponent<ObjectPool> ();
-
+		Plane.speed = 50.0f;
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
