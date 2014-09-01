@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutCube () {
 		for (;;) {
 			GameObject cube = poolOfCube.GetObjectFromPool ();
-			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 1800));
+			cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), -5, Random.Range (1500, 1800));
 			Quaternion target = Quaternion.Euler(Random.Range (-5.0f, 5.0f), Random.Range (0, 360), Random.Range (-10.0f, 10.0f));
 			cube.transform.rotation = Quaternion.Slerp(cube.transform.rotation, target, 1.0f);
 			yield return new WaitForSeconds (.2f);
@@ -129,11 +129,11 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutFire () {
 		for (;;) {
 			GameObject fire = poolOfFireWall.GetObjectFromPool ();
-			fire.particleSystem.Clear();
-			fire.transform.localScale = new Vector3(1, 1, 1);
-			fire.particleSystem.Play();
+			//fire.particleSystem.Clear();
+			//fire.transform.localScale = new Vector3(1, 1, 1);
+			//fire.particleSystem.Play();
 			fire.transform.rotation = Quaternion.Slerp(fire.transform.rotation, Quaternion.Euler(0, 0, 0), 1.0f);
-			fire.transform.position = plane.transform.position + new Vector3 (Random.Range (-100, 100), -plane.transform.position.y, 1300);
+			fire.transform.position = plane.transform.position + new Vector3 (Random.Range (-100, 100), -plane.transform.position.y, 500);
 
 			fire.GetComponent<Fire>().GlowUp();
 			yield return new WaitForSeconds (1.5f);
@@ -152,33 +152,34 @@ public class GameController : MonoBehaviour {
 				StartCoroutine("PutDropCube");
 				l2 = true;
 			}
-			if(!l3 && score > 1000){
-				levelLabel.guiText.text = "Level 3";
-				level = 3;
-				levelLabel.SetActive(true);
+			if(!l3 && score > 800){
+				//levelLabel.guiText.text = "Level 3";
+				//level = 3;
+				//levelLabel.SetActive(true);
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutSpeedItem");
 				l3 = true;
 			}
-			if(!l4 && score > 1500){
-				levelLabel.guiText.text = "Level 4";
+			if(!l4 && score > 1200){
+				levelLabel.guiText.text = "Level 3";
 				level = 4;
 				levelLabel.SetActive(true);
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
-				StartCoroutine("PutInsanityModeItem");
+				StartCoroutine("PutFire");
 				l4 = true;
 			}
-			if(!l5 && score > 300){
-				levelLabel.guiText.text = "Level 5";
-				level = 5;
-				levelLabel.SetActive(true);
+			if(!l5 && score > 1500){
+				//levelLabel.guiText.text = "Level 5";
+				//level = 5;
+				//levelLabel.SetActive(true);
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
-				StartCoroutine("PutFire");
+				StartCoroutine("PutInsanityModeItem");
 				l5 = true;
 			}
+
 			yield return new WaitForSeconds (1f);
 		}
 	}
