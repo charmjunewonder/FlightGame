@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour {
 	ObjectPool poolOfFireWall;
 
 	public Texture DropCubeIcon;
+	public Texture FireWallIcon;
 
 	public static int additionalScore;
 	public int score;
@@ -34,7 +35,9 @@ public class GameController : MonoBehaviour {
 	public Font myFont;
 	public GameObject levelLabel;
 	public GameObject fire;
-
+	float previousPostionOfPlane;
+	public static bool isSpeedUp;
+	public static bool isInsane;
 	void Awake ()
 	{
 		instance = this;
@@ -45,10 +48,7 @@ public class GameController : MonoBehaviour {
 		level = 1;
 		poolOfScoreItem = ScoreItemPool.GetComponent<ObjectPool> ();
 		poolOfCube = CubePool.GetComponent<ObjectPool> ();
-		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
-		poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
-		poolOfInsanityModeItem = InsanityModeItemPool.GetComponent<ObjectPool> ();
-		poolOfFireWall = FireWallPool.GetComponent<ObjectPool> ();
+
 		Plane.speed = 50.0f;
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
@@ -58,7 +58,13 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (isSpeedUp) {
+			additionalScore += (int)(plane.transform.position.z - previousPostionOfPlane) / 10;
+		}
+		if (isInsane) {
+			additionalScore += (int)(plane.transform.position.z - previousPostionOfPlane) *2 / 10;
+		}
+		previousPostionOfPlane = plane.transform.position.z;
 	}
 
 	IEnumerator PutScoreItem () {
@@ -143,10 +149,12 @@ public class GameController : MonoBehaviour {
 	IEnumerator CheckLevel () {
 		bool l2 = false, l3 = false, l4 = false, l5 = false;
 		for (;;) {
+			Debug.Log(score);
 			if(!l2 && score > 500){
 				levelLabel.guiText.text = "Level 2";
 				level = 2;
 				levelLabel.SetActive(true);
+				poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutDropCube");
@@ -156,6 +164,7 @@ public class GameController : MonoBehaviour {
 				//levelLabel.guiText.text = "Level 3";
 				//level = 3;
 				//levelLabel.SetActive(true);
+				poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutSpeedItem");
@@ -163,8 +172,10 @@ public class GameController : MonoBehaviour {
 			}
 			if(!l4 && score > 1200){
 				levelLabel.guiText.text = "Level 3";
-				level = 4;
+				level = 3;
 				levelLabel.SetActive(true);
+				poolOfFireWall = FireWallPool.GetComponent<ObjectPool> ();
+
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutFire");
@@ -174,6 +185,7 @@ public class GameController : MonoBehaviour {
 				//levelLabel.guiText.text = "Level 5";
 				//level = 5;
 				//levelLabel.SetActive(true);
+				poolOfInsanityModeItem = InsanityModeItemPool.GetComponent<ObjectPool> ();
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutInsanityModeItem");
@@ -186,6 +198,7 @@ public class GameController : MonoBehaviour {
 
 	void OnGUI () {
 		score = (int)(plane.transform.position.z - originPositionOfPlane)/10 + additionalScore;
+
 		GUIStyle myStyle = new GUIStyle();
 		myStyle.font = myFont;
 		myStyle.normal.textColor = Color.white;
@@ -194,7 +207,14 @@ public class GameController : MonoBehaviour {
 
 		if(level > 1)
 			GUI.DrawTexture(new Rect(Screen.width-55, 5, 50, 50), DropCubeIcon, ScaleMode.ScaleToFit, true, 0);
-
-
+		if(level > 2)
+			GUI.DrawTexture(new Rect(Screen.width-110, 5, 50, 50), FireWallIcon, ScaleMode.ScaleToFit, true, 0);
+		float scoreSpeed = 0;
+		if (isSpeedUp)
+			scoreSpeed += 1;
+		if (isInsane)
+			scoreSpeed += 2;
+		GUI.Label(new Rect(30, 40, 100, 20), "        X" + scoreSpeed, myStyle);
+		scoreSpeed = 0;
 	}
 }

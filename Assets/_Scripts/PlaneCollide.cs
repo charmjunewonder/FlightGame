@@ -31,6 +31,7 @@ public class PlaneCollide : MonoBehaviour {
 			if(isDebuging)
 				return;
 			Plane.speed = 0;
+			Plane.rotation = 0;
 			anim.SetBool ("isCrush", true);
 			audio.Play ();
 			Storage.score = GameController.instance.score;
@@ -95,8 +96,12 @@ public class PlaneCollide : MonoBehaviour {
 	IEnumerator SpeedUp () {
 		float speed = Plane.speed;
 		Plane.speed += 50;
+		//float originPositionOfPlane = transform.position.z;
+		GameController.isSpeedUp = true;
 		yield return new WaitForSeconds (5f);
 		StartCoroutine(SpeedSlowDown(speed));
+		GameController.isSpeedUp = false;
+		//GameController.additionalScore += (int)(transform.position.z - originPositionOfPlane)/10;
 	}
 
 	IEnumerator SpeedSlowDown (float finalSpeed) {
@@ -114,8 +119,10 @@ public class PlaneCollide : MonoBehaviour {
 	IEnumerator StartInsanityMode () {
 		StartCoroutine("PutMoreCube");
 		Debug.Log ("start");
+		GameController.isInsane = true;
 		yield return new WaitForSeconds(10f);
 		StopCoroutine("PutMoreCube");
+		GameController.isInsane = false;
 		Debug.Log ("stop");
 	}
 
