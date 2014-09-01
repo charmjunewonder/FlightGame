@@ -48,7 +48,6 @@ public class GameController : MonoBehaviour {
 		StartCoroutine("PutCube");
 		StartCoroutine("PutScoreItem");
 		StartCoroutine ("CheckLevel");
-		StartCoroutine ("PutInsanityModeItem");
 	}
 	
 	// Update is called once per frame
@@ -81,8 +80,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void PutMoreCube () {
-		GameObject cube = poolOfCube.GetObjectFromPool ();
-		cube.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (500, 800));
+		StartCoroutine("DropCube");
 	}
 
 	IEnumerator PutCube () {
@@ -123,25 +121,36 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator CheckLevel () {
+		bool l2 = false, l3 = false, l4 = false;
 		for (;;) {
-			if(score > 500){
+			if(!l2 && score > 500){
 				levelLabel.guiText.text = "Level 2";
 				level = 2;
 				levelLabel.SetActive(true);
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutDropCube");
-				break;
+				l2 = true;
 			}
-			if(score > 1000){
+			if(!l3 && score > 1000){
 				levelLabel.guiText.text = "Level 3";
 				level = 3;
 				levelLabel.SetActive(true);
 				yield return new WaitForSeconds (2f);
 				levelLabel.SetActive(false);
 				StartCoroutine("PutSpeedItem");
-				break;
+				l3 = true;
 			}
+			if(!l4 && score > 1500){
+				levelLabel.guiText.text = "Level 4";
+				level = 4;
+				levelLabel.SetActive(true);
+				yield return new WaitForSeconds (2f);
+				levelLabel.SetActive(false);
+				StartCoroutine("PutInsanityModeItem");
+				l4 = true;
+			}
+
 			yield return new WaitForSeconds (1f);
 		}
 	}
