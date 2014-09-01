@@ -23,11 +23,11 @@ public class PlaneCollide : MonoBehaviour {
 		isColliding = true;
 		if (other.tag == "Cube") {
 			Debug.Log ("oops");
-			Plane.speed = 0;
-			anim.SetBool ("isCrush", true);
-			audio.Play ();
-			Storage.score = GameController.instance.score;
-			StartCoroutine("ExitGame");
+//			Plane.speed = 0;
+//			anim.SetBool ("isCrush", true);
+//			audio.Play ();
+//			Storage.score = GameController.instance.score;
+//			StartCoroutine("ExitGame");
 		} else if (other.tag == "ScoreItem") {
 			other.gameObject.SetActive(false);
 			GameController.additionalScore += 100;
@@ -38,7 +38,7 @@ public class PlaneCollide : MonoBehaviour {
 			isSpeedUp = true;
 			StartCoroutine("SpeedUp");
 			StartCoroutine("DragCameraBack");
-			isSpeedUp = false;
+
 		} else if (other.tag == "InsanityModeItem"){
 			other.gameObject.SetActive(false);
 			StartCoroutine("StartInsanityMode");
@@ -78,8 +78,10 @@ public class PlaneCollide : MonoBehaviour {
 			i += Time.deltaTime * rate;
 			mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.localPosition, finalPosition, i);
 			yield return null; 
-			if(Mathf.Abs(mainCamera.transform.localPosition.z - finalPosition.z) < 0.1f)
+			if(Mathf.Abs(mainCamera.transform.localPosition.z - finalPosition.z) < 0.1f){
+				isSpeedUp = false;
 				break;
+			}
 		}
 	}
 

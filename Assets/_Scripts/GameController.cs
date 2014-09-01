@@ -22,6 +22,10 @@ public class GameController : MonoBehaviour {
 
 	public GameObject InsanityModeItemPool;
 	ObjectPool poolOfInsanityModeItem;
+
+	public GameObject FireWallPool;
+	ObjectPool poolOfFireWall;
+
 	public Texture DropCubeIcon;
 
 	public static int additionalScore;
@@ -29,6 +33,7 @@ public class GameController : MonoBehaviour {
 	int level;
 	public Font myFont;
 	public GameObject levelLabel;
+	public GameObject fire;
 
 	void Awake ()
 	{
@@ -43,6 +48,7 @@ public class GameController : MonoBehaviour {
 		poolOfDropCube = DropCubePool.GetComponent<ObjectPool> ();
 		poolOfSpeedItem = SpeedItemPool.GetComponent<ObjectPool> ();
 		poolOfInsanityModeItem = InsanityModeItemPool.GetComponent<ObjectPool> ();
+		poolOfFireWall = FireWallPool.GetComponent<ObjectPool> ();
 		Plane.speed = 50.0f;
 		originPositionOfPlane = plane.transform.position.z;
 		StartCoroutine("PutCube");
@@ -58,8 +64,8 @@ public class GameController : MonoBehaviour {
 	IEnumerator PutScoreItem () {
 		for (;;) {
 			GameObject scoreItem = poolOfScoreItem.instance.GetObjectFromPool ();
-			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 500));
-			yield return new WaitForSeconds (.5f);
+			scoreItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-200, 200), 0, Random.Range (1500, 500));
+			yield return new WaitForSeconds (1f);
 		}
 	}
 
@@ -75,7 +81,7 @@ public class GameController : MonoBehaviour {
 		for (;;) {
 			GameObject insanityModeItem = poolOfInsanityModeItem.instance.GetObjectFromPool ();
 			insanityModeItem.transform.position = plane.transform.position + new Vector3 (Random.Range (-300, 300), 0, Random.Range (1500, 500));
-			yield return new WaitForSeconds (2f);
+			yield return new WaitForSeconds (5f);
 		}
 	}
 
@@ -102,7 +108,7 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator DropCube () {
 		GameObject cube = poolOfDropCube.GetObjectFromPool ();
-		Vector3 finalPosition = plane.transform.position + new Vector3 (Random.Range (-150, 150), 0, Random.Range (200, 300));
+		Vector3 finalPosition = plane.transform.position + new Vector3 (Random.Range (-150, 150), 0, Random.Range (300, 400));
 
 		cube.transform.position = finalPosition + Vector3.up * 50;
 //		for (int i = 0; i < 2; i++) {
@@ -120,8 +126,22 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	IEnumerator PutFire () {
+		for (;;) {
+			GameObject fire = poolOfFireWall.GetObjectFromPool ();
+			fire.particleSystem.Clear();
+			fire.transform.localScale = new Vector3(1, 1, 1);
+			fire.particleSystem.Play();
+			fire.transform.rotation = Quaternion.Slerp(fire.transform.rotation, Quaternion.Euler(0, 0, 0), 1.0f);
+			fire.transform.position = plane.transform.position + new Vector3 (Random.Range (-100, 100), -plane.transform.position.y, 1300);
+
+			fire.GetComponent<Fire>().GlowUp();
+			yield return new WaitForSeconds (1.5f);
+		}
+	}
+
 	IEnumerator CheckLevel () {
-		bool l2 = false, l3 = false, l4 = false;
+		bool l2 = false, l3 = false, l4 = false, l5 = false;
 		for (;;) {
 			if(!l2 && score > 500){
 				levelLabel.guiText.text = "Level 2";
@@ -150,7 +170,15 @@ public class GameController : MonoBehaviour {
 				StartCoroutine("PutInsanityModeItem");
 				l4 = true;
 			}
-
+			if(!l5 && score > 300){
+				levelLabel.guiText.text = "Level 5";
+				level = 5;
+				levelLabel.SetActive(true);
+				yield return new WaitForSeconds (2f);
+				levelLabel.SetActive(false);
+				StartCoroutine("PutFire");
+				l5 = true;
+			}
 			yield return new WaitForSeconds (1f);
 		}
 	}
@@ -163,7 +191,7 @@ public class GameController : MonoBehaviour {
 		myStyle.fontSize = 30;
 		GUI.Label(new Rect(10, 10, 100, 20), "Score: " + score, myStyle);
 
-		if(level > 2)
+		if(level > 1)
 			GUI.DrawTexture(new Rect(Screen.width-55, 5, 50, 50), DropCubeIcon, ScaleMode.ScaleToFit, true, 0);
 
 

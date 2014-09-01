@@ -2,11 +2,14 @@
 using System.Collections;
 
 public class StartSceneController : MonoBehaviour {
-	
+	public Font myFont;
 	void OnGUI () {
-		
+		GUIStyle myStyle = new GUIStyle();
+		myStyle.font = myFont;
+		myStyle.normal.textColor = Color.white;
+		myStyle.fontSize = 50;
 		// Make a background box
-		GUI.Box(new Rect(Screen.width/5, Screen.height/5, Screen.width*3/5,Screen.height*3/5), "Flight Game");
+		GUI.Label(new Rect(Screen.width/2-50, Screen.height/5, 100,20), "Flight Game", myStyle);
 		
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2-25,200,50), "Start")) {
